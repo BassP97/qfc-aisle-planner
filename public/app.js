@@ -45,13 +45,13 @@ function render() {
     el.addEventListener("click", () => $("g-" + el.dataset.id)?.scrollIntoView({ behavior: "smooth", block: "start" })));
 
   // Groups
-  const opts = (sel) => `<option value="">Pick section…</option>` + layout.sections.map((s) => `<option value="${s.id}" ${s.id === sel ? "selected" : ""}>${s.name}</option>`).join("");
+  const opts = (sel) => `<option value="">Choose section...</option>` + layout.sections.map((s) => `<option value="${s.id}" ${s.id === sel ? "selected" : ""}>${s.name}</option>`).join("");
   const itemRow = (i, withSelect) => `<label class="item ${i.checked ? "checked" : ""}">
       <input type="checkbox" data-id="${i.id}" ${i.checked ? "checked" : ""} ${withSelect ? "disabled" : ""}>
       <span>${esc(i.text)}</span>
       ${withSelect ? `<select data-assign="${i.id}">${opts(i.suggested)}</select>` : ""}</label>`;
   $("groups").innerHTML =
-    (unsure.length ? `<section class="group unsure" id="g-unsure"><h2>Where on earth? <span>pick a section</span></h2>${unsure.map((i) => itemRow(i, true)).join("")}</section>` : "") +
+    (unsure.length ? `<section class="group unsure" id="g-unsure"><h2>Unsorted <span>choose a section</span></h2>${unsure.map((i) => itemRow(i, true)).join("")}</section>` : "") +
     groups.map(({ s, list }) => `<section class="group" id="g-${s.id}"><h2>${s.name}<span>${list.filter((i) => i.checked).length} / ${list.length}</span></h2>${s.sign.length ? `<div class="hint">${s.sign.join(" · ")}</div>` : ""}${list.map((i) => itemRow(i)).join("")}</section>`).join("");
 
   $("groups").querySelectorAll("input[type=checkbox]").forEach((el) =>
@@ -66,7 +66,7 @@ async function go() {
   const parsed = parseList($("input").value);
   if (!parsed.length) return;
   $("go").disabled = true;
-  $("status").textContent = "Finding items…";
+  $("status").textContent = "Finding items...";
   try {
     const res = await fetch("/api/classify", { method: "POST", body: JSON.stringify({ items: parsed }) });
     if (!res.ok) throw new Error((await res.json()).error ?? res.status);
@@ -77,7 +77,7 @@ async function go() {
     $("status").textContent = "";
     save(); render();
   } catch (e) {
-    $("status").textContent = "Couldn't classify: " + e.message;
+    $("status").textContent = "Could not sort the list: " + e.message;
   } finally { $("go").disabled = false; }
 }
 
