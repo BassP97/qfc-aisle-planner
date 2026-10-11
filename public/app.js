@@ -33,7 +33,7 @@ function render() {
     return `<g class="${cls}" data-id="${s.id}"><rect x="${s.x}" y="${s.y}" width="${s.w}" height="${s.h}" rx="1"/>
       <text x="${s.x + s.w / 2}" y="${s.y + s.h / 2 + 1}">${s.name.split(/[ (]/)[0]}</text>
       ${g ? `<circle class="badge" cx="${s.x + 3}" cy="${s.y + 3}" r="2.6"/><text class="badge-t" x="${s.x + 3}" y="${s.y + 4}" style="text-anchor:middle">${n}</text>` : ""}</g>`;
-  }).join("") + `<text x="${layout.entrance.x}" y="99" style="font-size:2.4px;text-anchor:middle;fill:var(--ink);letter-spacing:.3px;font-family:var(--body);font-weight:700">▲ ENTRANCE</text>`;
+  }).join("") + `<text x="${layout.entrance.x}" y="99" style="font-size:2.4px;text-anchor:middle;fill:var(--ink);letter-spacing:.35px;font-family:var(--body);font-weight:700">▲ ENTRANCE</text>`;
   svg.querySelectorAll(".sec.has, .sec.done").forEach((el) =>
     el.addEventListener("click", () => $("g-" + el.dataset.id)?.scrollIntoView({ behavior: "smooth", block: "start" })));
 
