@@ -4,11 +4,11 @@
   0,
   0,
   200,
-  133
+  134
  ],
  "outline": {
-  "x": 8,
-  "y": 7,
+  "x": 6,
+  "y": 6,
   "w": 188,
   "h": 116
  },
@@ -18,10 +18,10 @@
    "name": "Produce & Deli",
    "label": "Produce & Deli",
    "order": 2,
-   "x": 12,
-   "y": 46,
-   "w": 34,
-   "h": 43,
+   "x": 10,
+   "y": 43,
+   "w": 52,
+   "h": 50,
    "sign": [],
    "describe": "fresh fruit, vegetables, salad, herbs, fresh mushrooms, potatoes, onions, deli counter, prepared foods, rotisserie chicken, deli meat sliced to order, hummus, sushi",
    "keywords": [
@@ -54,17 +54,18 @@
     "rotisserie",
     "hummus",
     "sushi"
-   ]
+   ],
+   "kind": "fresh"
   },
   {
    "id": "bakery",
    "name": "Bread & Bakery",
    "label": "Bakery",
    "order": 1,
-   "x": 10.5,
-   "y": 94.5,
-   "w": 35.5,
-   "h": 23,
+   "x": 10,
+   "y": 96,
+   "w": 52,
+   "h": 22,
    "sign": [],
    "describe": "fresh bread, baked desserts, cakes, pies, pastries, donuts, muffins, bagels, croissants, rolls, bakery items",
    "keywords": [
@@ -80,17 +81,18 @@
     "bakery",
     "roll",
     "bun"
-   ]
+   ],
+   "kind": "fresh"
   },
   {
    "id": "wine",
    "name": "Wine",
    "label": "Wine",
    "order": 3,
-   "x": 10.8,
-   "y": 9.5,
-   "w": 20,
-   "h": 33,
+   "x": 10,
+   "y": 10,
+   "w": 25,
+   "h": 30,
    "sign": [],
    "describe": "wine, red wine, white wine, ros\u00e9, champagne, prosecco, sparkling wine",
    "keywords": [
@@ -103,17 +105,18 @@
     "pinot",
     "cabernet",
     "chardonnay"
-   ]
+   ],
+   "kind": "fresh"
   },
   {
    "id": "cheese",
    "name": "Cheese",
    "label": "Cheese",
    "order": 4,
-   "x": 32.5,
-   "y": 20,
-   "w": 23.5,
-   "h": 23,
+   "x": 37,
+   "y": 10,
+   "w": 25,
+   "h": 30,
    "sign": [],
    "describe": "specialty cheese counter, block cheese, artisan cheese, brie, cheddar, parmesan, gouda, goat cheese",
    "keywords": [
@@ -126,17 +129,18 @@
     "goat cheese",
     "swiss",
     "cheese"
-   ]
+   ],
+   "kind": "fresh"
   },
   {
    "id": "aisle1",
    "name": "Aisle 1",
    "label": "1",
    "order": 6,
-   "x": 58.5,
-   "y": 24.5,
-   "w": 13.3,
-   "h": 92.5,
+   "x": 66,
+   "y": 29,
+   "w": 12.4,
+   "h": 89,
    "sign": [
     "breads",
     "peanut butter",
@@ -158,17 +162,18 @@
     "lunch meat",
     "shredded cheese",
     "bacon"
-   ]
+   ],
+   "kind": "aisle"
   },
   {
    "id": "aisle2",
    "name": "Aisle 2",
    "label": "2",
    "order": 7,
-   "x": 73,
-   "y": 25,
-   "w": 13,
-   "h": 92.5,
+   "x": 80,
+   "y": 29,
+   "w": 12.4,
+   "h": 89,
    "sign": [
     "soft drinks",
     "sport drinks",
@@ -192,17 +197,18 @@
     "pretzel",
     "bulk",
     "mixer"
-   ]
+   ],
+   "kind": "aisle"
   },
   {
    "id": "aisle3",
    "name": "Aisle 3",
    "label": "3",
    "order": 8,
-   "x": 87.5,
-   "y": 25,
-   "w": 13.5,
-   "h": 92.5,
+   "x": 94,
+   "y": 29,
+   "w": 12.4,
+   "h": 89,
    "sign": [
     "ketchup & mustard",
     "pickles & olives",
@@ -232,17 +238,18 @@
     "gravy",
     "tofu",
     "sriracha"
-   ]
+   ],
+   "kind": "aisle"
   },
   {
    "id": "aisle4",
    "name": "Aisle 4",
    "label": "4",
    "order": 9,
-   "x": 102,
-   "y": 25.5,
-   "w": 12.2,
-   "h": 92.5,
+   "x": 108,
+   "y": 29,
+   "w": 12.4,
+   "h": 89,
    "sign": [
     "granola bars",
     "cereal",
@@ -263,17 +270,18 @@
     "soup",
     "broth",
     "ramen"
-   ]
+   ],
+   "kind": "aisle"
   },
   {
    "id": "aisle5",
    "name": "Aisle 5",
    "label": "5",
    "order": 10,
-   "x": 115.7,
-   "y": 25.5,
-   "w": 12,
-   "h": 92.5,
+   "x": 122,
+   "y": 29,
+   "w": 12.4,
+   "h": 89,
    "sign": [
     "seasonal",
     "candy",
@@ -299,17 +307,18 @@
     "tea",
     "candy",
     "chocolate"
-   ]
+   ],
+   "kind": "aisle"
   },
   {
    "id": "aisle6",
    "name": "Aisle 6",
    "label": "6",
    "order": 11,
-   "x": 129,
-   "y": 34.5,
-   "w": 12,
-   "h": 84,
+   "x": 136,
+   "y": 43,
+   "w": 12.4,
+   "h": 75,
    "sign": [
     "cough, cold & flu",
     "toothpaste",
@@ -348,17 +357,18 @@
     "lotion",
     "band-aid",
     "bandaid"
-   ]
+   ],
+   "kind": "aisle"
   },
   {
    "id": "aisle7",
    "name": "Aisle 7",
    "label": "7",
    "order": 12,
-   "x": 143,
-   "y": 34.5,
-   "w": 12.5,
-   "h": 84,
+   "x": 150,
+   "y": 43,
+   "w": 12.4,
+   "h": 75,
    "sign": [
     "dog & cat food",
     "brooms & mops",
@@ -386,17 +396,18 @@
     "air freshener",
     "bleach",
     "sponge"
-   ]
+   ],
+   "kind": "aisle"
   },
   {
    "id": "aisle8",
    "name": "Aisle 8",
    "label": "8",
    "order": 14,
-   "x": 157.5,
-   "y": 34.5,
-   "w": 11.5,
-   "h": 84,
+   "x": 164,
+   "y": 43,
+   "w": 12.4,
+   "h": 75,
    "sign": [
     "frozen meals",
     "frozen meats",
@@ -417,17 +428,18 @@
     "ipa",
     "lager",
     "hard seltzer"
-   ]
+   ],
+   "kind": "cold"
   },
   {
    "id": "aisle9",
    "name": "Aisle 9",
    "label": "9",
    "order": 15,
-   "x": 170,
-   "y": 36.7,
-   "w": 12,
-   "h": 81.5,
+   "x": 178,
+   "y": 43,
+   "w": 12.4,
+   "h": 75,
    "sign": [
     "frozen pizza",
     "ice cream",
@@ -448,17 +460,18 @@
     "frozen vegetable",
     "frozen fruit",
     "frozen"
-   ]
+   ],
+   "kind": "cold"
   },
   {
    "id": "meat",
    "name": "Meat & Seafood",
    "label": "Meat",
    "order": 5,
-   "x": 34,
-   "y": 8.7,
-   "w": 89,
-   "h": 10.5,
+   "x": 66,
+   "y": 10,
+   "w": 67,
+   "h": 16,
    "sign": [],
    "describe": "fresh raw meat, beef, ground beef, steak, chicken, pork, sausage, turkey, lamb, fresh fish, salmon, shrimp, seafood counter",
    "keywords": [
@@ -475,17 +488,18 @@
     "shrimp",
     "seafood",
     "meat"
-   ]
+   ],
+   "kind": "fresh"
   },
   {
    "id": "dairy",
    "name": "Dairy & Eggs",
    "label": "Dairy",
    "order": 13,
-   "x": 131,
+   "x": 136,
    "y": 10,
-   "w": 61,
-   "h": 20,
+   "w": 54,
+   "h": 30,
    "sign": [],
    "describe": "milk, eggs, yogurt, butter, cream, half and half, sour cream, cottage cheese, plant milk, oat milk, almond milk",
    "keywords": [
@@ -498,12 +512,13 @@
     "cottage cheese",
     "oat milk",
     "almond milk"
-   ]
+   ],
+   "kind": "cold"
   }
  ],
  "entrance": {
-  "x": 28,
-  "y": 123,
+  "x": 36,
+  "y": 122,
   "w": 24
  }
 }

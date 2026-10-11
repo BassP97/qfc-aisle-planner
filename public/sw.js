@@ -1,5 +1,5 @@
 // Cache the app shell so the page opens in the store even with weak signal; API calls always go to the network.
-const CACHE = "qfc-map-v7";
+const CACHE = "qfc-map-v8";
 const SHELL = ["/", "/app.js", "/manifest.webmanifest", "/icon.svg"];
 self.addEventListener("install", (e) => e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL))));
 self.addEventListener("activate", (e) => e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k))))));

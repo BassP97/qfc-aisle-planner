@@ -37,9 +37,9 @@ function render() {
   svg.innerHTML = `<rect class="outline" x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}" rx="4"/>` + layout.sections.map((s) => {
     const g = groups.find((g) => g.s.id === s.id);
     const done = g && g.list.every((i) => i.checked);
-    const cls = g ? (done ? "sec done" : "sec has") : "sec";
-    return `<g class="${cls}" data-id="${s.id}"><rect x="${s.x}" y="${s.y}" width="${s.w}" height="${s.h}" rx="1"/>
-      <text class="${s.label.length <= 2 ? "num" : ""}" x="${s.x + s.w / 2}" y="${s.y + s.h / 2 + (s.label.length <= 2 ? 3 : 1.6)}">${esc(s.label)}</text></g>`;
+    const cls = (g ? (done ? "sec done" : "sec has") : "sec") + " " + s.kind;
+    return `<g class="${cls}" data-id="${s.id}"><rect x="${s.x}" y="${s.y}" width="${s.w}" height="${s.h}" rx="2"/>
+      <text class="${s.label.length <= 2 ? "num" : ""}" x="${s.x + s.w / 2}" y="${s.label.length <= 2 ? s.y + 11 : s.y + s.h / 2 + 1.6}">${esc(s.label)}</text></g>`;
   }).join("") + entranceMark();
   svg.querySelectorAll(".sec.has, .sec.done").forEach((el) =>
     el.addEventListener("click", () => $("g-" + el.dataset.id)?.scrollIntoView({ behavior: "smooth", block: "start" })));
