@@ -3,3 +3,6 @@
 node_modules/
 .wrangler/
 Screenshot*.png
+IMG_*.PNG
+Map sketch.png
+.DS_Store

@@ -25,15 +25,15 @@ function render() {
   // Map
   const svg = $("map");
   svg.hidden = !items.length;
-  svg.innerHTML = layout.sections.map((s) => {
+  svg.setAttribute("viewBox", layout.viewBox.join(" "));
+  const o = layout.outline;
+  svg.innerHTML = `<rect class="outline" x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}" rx="4"/>` + layout.sections.map((s) => {
     const g = groups.find((g) => g.s.id === s.id);
     const done = g && g.list.every((i) => i.checked);
-    const n = groups.findIndex((g) => g.s.id === s.id) + 1;
     const cls = g ? (done ? "sec done" : "sec has") : "sec";
     return `<g class="${cls}" data-id="${s.id}"><rect x="${s.x}" y="${s.y}" width="${s.w}" height="${s.h}" rx="1"/>
-      <text x="${s.x + s.w / 2}" y="${s.y + s.h / 2 + 1}">${s.name.split(/[ (]/)[0]}</text>
-      ${g ? `<circle class="badge" cx="${s.x + 3}" cy="${s.y + 3}" r="2.6"/><text class="badge-t" x="${s.x + 3}" y="${s.y + 4}" style="text-anchor:middle">${n}</text>` : ""}</g>`;
-  }).join("") + `<text x="${layout.entrance.x}" y="99" style="font-size:2.4px;text-anchor:middle;fill:var(--ink);letter-spacing:.35px;font-family:var(--body);font-weight:700">▲ ENTRANCE</text>`;
+      <text class="${s.label.length <= 2 ? "num" : ""}" x="${s.x + s.w / 2}" y="${s.y + s.h / 2 + (s.label.length <= 2 ? 3 : 1.6)}">${esc(s.label)}</text></g>`;
+  }).join("");
   svg.querySelectorAll(".sec.has, .sec.done").forEach((el) =>
     el.addEventListener("click", () => $("g-" + el.dataset.id)?.scrollIntoView({ behavior: "smooth", block: "start" })));
 
@@ -45,7 +45,7 @@ function render() {
       ${withSelect ? `<select data-assign="${i.id}">${opts(i.suggested)}</select>` : ""}</label>`;
   $("groups").innerHTML =
     (unsure.length ? `<section class="group unsure" id="g-unsure"><h2>Where on earth? <span>pick a section</span></h2>${unsure.map((i) => itemRow(i, true)).join("")}</section>` : "") +
-    groups.map(({ s, list }, idx) => `<section class="group" id="g-${s.id}"><h2>${idx + 1}. ${s.name}<span>${list.filter((i) => i.checked).length} / ${list.length}</span></h2>${list.map((i) => itemRow(i)).join("")}</section>`).join("");
+    groups.map(({ s, list }) => `<section class="group" id="g-${s.id}"><h2>${s.name}<span>${list.filter((i) => i.checked).length} / ${list.length}</span></h2>${s.sign.length ? `<div class="hint">${s.sign.join(" · ")}</div>` : ""}${list.map((i) => itemRow(i)).join("")}</section>`).join("");
 
   $("groups").querySelectorAll("input[type=checkbox]").forEach((el) =>
     el.addEventListener("change", () => { items.find((i) => i.id === el.dataset.id).checked = el.checked; save(); render(); }));
@@ -78,7 +78,9 @@ async function init() {
   layout = await (await fetch("/api/layout")).json();
   if (layout.placeholder) $("banner").innerHTML = `<div class="banner">Placeholder store layout — section positions aren't real yet.</div>`;
   const saved = load();
-  items = saved.items ?? [];
+  const ids = new Set(layout.sections.map((s) => s.id));
+  // Drop assignments to sections that no longer exist (layout changed since the list was saved).
+  items = (saved.items ?? []).map((i) => (ids.has(i.section) ? i : { ...i, section: null }));
   $("input").value = saved.text ?? "";
   $("input").addEventListener("input", save);
   $("go").addEventListener("click", go);
