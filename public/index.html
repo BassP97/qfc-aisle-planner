@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b6b3a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<title>QFC Map</title>
+<style>
+  :root { --green:#1b6b3a; --bg:#f6f7f4; --card:#fff; --ink:#1d2320; --mute:#6b756f; --line:#dfe4de; --warn:#b4540a; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#141815; --card:#1d231f; --ink:#e8ece9; --mute:#93a09a; --line:#2c352f; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font:16px/1.4 system-ui,sans-serif; background:var(--bg); color:var(--ink); padding:0 16px calc(32px + env(safe-area-inset-bottom)); }
+  main { max-width:560px; margin:0 auto; }
+  h1 { font-size:20px; margin:16px 0 2px; } .sub { color:var(--mute); font-size:13px; margin:0 0 12px; }
+  textarea { width:100%; min-height:110px; padding:12px; font:inherit; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--ink); }
+  button { font:inherit; border:0; border-radius:10px; padding:12px 16px; background:var(--green); color:#fff; font-weight:600; }
+  button.ghost { background:transparent; color:var(--mute); border:1px solid var(--line); font-weight:400; padding:8px 12px; }
+  .row { display:flex; gap:8px; margin:10px 0; } .row button:first-child { flex:1; }
+  .banner { background:#fff3e0; color:var(--warn); border-radius:8px; padding:8px 12px; font-size:13px; margin:8px 0; }
+  svg.map { width:100%; background:var(--card); border:1px solid var(--line); border-radius:10px; margin:8px 0; }
+  .sec rect { fill:var(--line); stroke:var(--mute); stroke-width:.3; }
+  .sec text { font-size:2.6px; fill:var(--ink); text-anchor:middle; pointer-events:none; }
+  .sec.has rect { fill:#b9dcc4; stroke:var(--green); stroke-width:.6; }
+  .sec.done rect { fill:#e3e8e4; stroke:var(--line); } .sec.done text { fill:var(--mute); }
+  .sec .badge { fill:var(--green); } .sec .badge-t { fill:#fff; font-size:3px; font-weight:700; }
+  .group { background:var(--card); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden; }
+  .group h2 { font-size:15px; margin:0; padding:10px 12px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
+  .group h2 span { color:var(--mute); font-weight:400; font-size:13px; }
+  .group.unsure h2 { color:var(--warn); }
+  label.item { display:flex; align-items:center; gap:12px; padding:12px; border-top:1px solid var(--line); }
+  label.item:first-of-type { border-top:0; }
+  input[type=checkbox] { width:24px; height:24px; accent-color:var(--green); flex:none; }
+  label.item.checked span { text-decoration:line-through; color:var(--mute); }
+  label.item span { flex:1; }
+  select { font:inherit; max-width:48%; padding:6px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--ink); }
+</style>
+</head>
+<body>
+<main>
+  <h1>QFC Harvard Market</h1>
+  <p class="sub">Paste your list — commas or new lines.</p>
+  <div id="banner"></div>
+  <textarea id="input" placeholder="milk, 2 avocados&#10;tortilla chips&#10;paper towels"></textarea>
+  <div class="row"><button id="go">Find my items</button><button id="clear" class="ghost">Clear</button></div>
+  <div id="status" class="sub"></div>
+  <svg id="map" class="map" viewBox="0 0 100 100" hidden></svg>
+  <div id="groups"></div>
+</main>
+<script src="app.js" type="module"></script>
+</body>
+</html>
