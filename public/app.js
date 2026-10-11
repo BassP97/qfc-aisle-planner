@@ -14,6 +14,13 @@ export function parseList(text) {
     .filter(Boolean);
 }
 
+function entranceMark() {
+  const e = layout.entrance;
+  if (!e) return "";
+  return `<rect class="door" x="${e.x - e.w / 2}" y="${e.y - 1}" width="${e.w}" height="2.4"/>
+    <text class="enter" x="${e.x}" y="${e.y + 8}">▲ ENTRANCE</text>`;
+}
+
 function render() {
   const byId = Object.fromEntries(layout.sections.map((s) => [s.id, s]));
   const groups = layout.sections
@@ -33,7 +40,7 @@ function render() {
     const cls = g ? (done ? "sec done" : "sec has") : "sec";
     return `<g class="${cls}" data-id="${s.id}"><rect x="${s.x}" y="${s.y}" width="${s.w}" height="${s.h}" rx="1"/>
       <text class="${s.label.length <= 2 ? "num" : ""}" x="${s.x + s.w / 2}" y="${s.y + s.h / 2 + (s.label.length <= 2 ? 3 : 1.6)}">${esc(s.label)}</text></g>`;
-  }).join("");
+  }).join("") + entranceMark();
   svg.querySelectorAll(".sec.has, .sec.done").forEach((el) =>
     el.addEventListener("click", () => $("g-" + el.dataset.id)?.scrollIntoView({ behavior: "smooth", block: "start" })));
 
