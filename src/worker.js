@@ -56,24 +56,28 @@ function codeMatches(given, expected) {
   return diff === 0;
 }
 
+// API responses are never cached and must not be sniffed as another content type.
+const json = (body, init = {}) =>
+  Response.json(body, { ...init, headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
+
 export async function handleApi(request, env) {
   const url = new URL(request.url);
-  if (url.pathname === "/api/layout") return Response.json(layout);
+  if (url.pathname === "/api/layout") return json(layout);
   if (url.pathname === "/api/classify" && request.method === "POST") {
     if (!env.TYPESAFE_API_KEY || !env.ACCESS_CODE) {
-      return Response.json({ error: "Server is missing TYPESAFE_API_KEY or ACCESS_CODE" }, { status: 500 });
+      return json({ error: "Server is missing TYPESAFE_API_KEY or ACCESS_CODE" }, { status: 500 });
     }
     if (!codeMatches(request.headers.get("X-Access-Code") ?? "", env.ACCESS_CODE)) {
-      return Response.json({ error: "Wrong or missing access code" }, { status: 401 });
+      return json({ error: "Wrong or missing access code" }, { status: 401 });
     }
     const { items } = await request.json();
     if (!Array.isArray(items) || items.length > MAX_ITEMS) {
-      return Response.json({ error: `Send up to ${MAX_ITEMS} items` }, { status: 400 });
+      return json({ error: `Send up to ${MAX_ITEMS} items` }, { status: 400 });
     }
     const results = await Promise.all(
       items.map((i) => classify(String(i).slice(0, 200), env.TYPESAFE_API_KEY)),
     );
-    return Response.json({ results });
+    return json({ results });
   }
   return null;
 }

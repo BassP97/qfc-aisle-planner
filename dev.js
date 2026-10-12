@@ -8,14 +8,14 @@ for (const line of fs.existsSync(".env") ? fs.readFileSync(".env", "utf8").split
   const m = line.match(/^\s*([A-Z_]+)\s*=\s*(.*)\s*$/);
   if (m) process.env[m[1]] ??= m[2].replace(/^["']|["']$/g, "");
 }
-const types = { ".html": "text/html", ".js": "text/javascript", ".json": "application/json", ".css": "text/css", ".svg": "image/svg+xml", ".webmanifest": "application/manifest+json" };
+const types = { ".html": "text/html", ".js": "text/javascript", ".json": "application/json", ".css": "text/css", ".svg": "image/svg+xml", ".webmanifest": "application/manifest+json", ".woff2": "font/woff2", ".png": "image/png" };
 
 http.createServer(async (req, res) => {
   const body = ["GET", "HEAD"].includes(req.method) ? undefined : await new Promise((r) => { let d = ""; req.on("data", (c) => (d += c)); req.on("end", () => r(d)); });
   const request = new Request(`http://localhost${req.url}`, { method: req.method, body, headers: req.headers });
   const api = await handleApi(request, process.env);
   if (api) {
-    res.writeHead(api.status, { "Content-Type": "application/json" });
+    res.writeHead(api.status, Object.fromEntries(api.headers));
     return res.end(await api.text());
   }
   let p = new URL(request.url).pathname;

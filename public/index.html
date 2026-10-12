@@ -8,63 +8,7 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>QFC Map</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap">
-<style>
-  :root { --paper:#f3e9d2; --card:#fbf5e6; --ink:#2b2118; --mute:#7a6a55; --line:#cdbb98; --teal:#1f5f5b; --orange:#c8531e; --mustard:#d9a41e; --warn:#a63d12; --bg:var(--paper);
-    --track:.16em; --body:"Josefin Sans","Century Gothic",Futura,sans-serif; }
-  * { box-sizing: border-box; }
-  body { margin:0; font:500 17px/1.45 var(--body); letter-spacing:.01em; background:var(--paper); color:var(--ink);
-    background-image:radial-gradient(rgba(122,106,85,.13) 1px,transparent 1.2px); background-size:7px 7px;
-    padding:0 16px calc(32px + env(safe-area-inset-bottom)); }
-  main { max-width:560px; margin:0 auto; }
-  header { text-align:center; padding:22px 0 14px; border-bottom:3px double var(--ink); margin-bottom:14px; position:relative; }
-  .eyebrow { font-size:12px; letter-spacing:var(--track); text-transform:uppercase; color:var(--orange); font-weight:700; }
-  h1 { font:700 36px/1.05 var(--body); text-transform:uppercase; letter-spacing:.06em; margin:6px 0 8px; }
-  .stars { color:var(--mustard); letter-spacing:.5em; font-size:12px; font-weight:400; }
-  .sub { color:var(--mute); font-size:17px; margin:0 0 10px; }
-  .label { font-size:12px; letter-spacing:var(--track); text-transform:uppercase; font-weight:700; color:var(--teal); margin:14px 0 6px; }
-  textarea { width:100%; min-height:110px; padding:12px 14px; font-family:var(--body); font-size:17px; font-weight:500; letter-spacing:.01em; border:2px solid var(--ink); border-radius:2px; background:var(--card); color:var(--ink);
-    box-shadow:4px 4px 0 var(--teal); outline:none; }
-  textarea:focus { box-shadow:4px 4px 0 var(--orange); }
-  button { font-family:var(--body); font-weight:700; letter-spacing:var(--track); text-transform:uppercase; font-size:12px; border:2px solid var(--ink); border-radius:2px; padding:13px 16px;
-    background:var(--orange); color:var(--card); box-shadow:3px 3px 0 var(--ink); }
-  button:active { transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ink); }
-  button:disabled { opacity:.6; }
-  button.ghost { background:var(--card); color:var(--ink); }
-  .row { display:flex; gap:10px; margin:16px 0 10px; } .row button:first-child { flex:1; }
-  .banner { background:var(--mustard); color:var(--ink); border:2px solid var(--ink); padding:7px 12px; font-size:17px; margin:0 0 12px; transform:rotate(-.6deg); }
-  svg.map { width:100%; background:var(--card); border:2px solid var(--ink); box-shadow:4px 4px 0 var(--mustard); margin:8px 0 16px; }
-  .sec rect { fill:#e6d8b8; stroke:var(--ink); stroke-width:.35; }
-  .door { fill:var(--orange); stroke:var(--ink); stroke-width:.4; }
-  .enter { font-size:4.3px; font-weight:700; letter-spacing:.5px; text-anchor:middle; fill:var(--orange); }
-  .outline { fill:none; stroke:var(--ink); stroke-width:.9; }
-  .sec text.num { font-size:7px; letter-spacing:0; }
-  .sec text { font-size:4.3px; fill:var(--mute); text-anchor:middle; pointer-events:none; font-family:var(--body); letter-spacing:.5px; text-transform:uppercase; }
-  .hint { padding:7px 12px; font-size:13px; color:var(--mute); border-bottom:1px dashed var(--line); text-transform:capitalize; letter-spacing:.02em; }
-  .sec.cold rect { fill:#d3dcd3; }
-  .sec.fresh rect { fill:#ecdfc0; }
-  .sec.has rect { fill:var(--teal); stroke:var(--ink); stroke-width:.5; cursor:pointer; }
-  .sec.has text { fill:var(--card); font-weight:700; }
-  .sec.done rect { fill:#e6d8b8; stroke:var(--line); } .sec.done text { fill:var(--line); text-decoration:line-through; }
-  .sec .badge { fill:var(--orange); stroke:var(--ink); stroke-width:.35; } .sec .badge-t { fill:var(--card); font-size:3px; font-weight:700; font-family:var(--body); }
-  .group { background:var(--card); border:2px solid var(--ink); margin:16px 0; box-shadow:4px 4px 0 var(--line); }
-  .group h2 { font:700 17px var(--body); letter-spacing:.06em; text-transform:uppercase; margin:0; padding:9px 12px; background:var(--teal); color:var(--card);
-    border-bottom:2px solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; }
-  .group h2 span { font:700 12px var(--body); letter-spacing:var(--track); color:var(--mustard); }
-  .group.unsure h2 { background:var(--warn); } .group.unsure h2 span { color:var(--card); }
-  label.item { display:flex; align-items:center; gap:14px; padding:12px; border-top:1px dashed var(--line); }
-  label.item:first-of-type { border-top:0; }
-  input[type=checkbox] { appearance:none; -webkit-appearance:none; width:26px; height:26px; flex:none; margin:0; border:2px solid var(--ink); border-radius:50%; background:var(--paper); display:grid; place-content:center; }
-  input[type=checkbox]::after { content:"✓"; font-weight:900; color:var(--card); transform:scale(0); transition:transform .12s; }
-  input[type=checkbox]:checked { background:var(--orange); } input[type=checkbox]:checked::after { transform:scale(1); }
-  label.item.checked span { text-decoration:line-through; color:var(--mute); }
-  label.item span { flex:1; font-size:17px; }
-  #access input { flex:1; min-width:0; padding:12px 14px; font-family:var(--body); font-size:17px; border:2px solid var(--ink); border-radius:2px; background:var(--card); color:var(--ink); }
-  select { font-family:var(--body); font-size:17px; font-weight:500; max-width:48%; padding:6px; border-radius:2px; border:2px solid var(--ink); background:var(--paper); color:var(--ink); }
-  footer { text-align:center; margin-top:28px; color:var(--mute); }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main>
