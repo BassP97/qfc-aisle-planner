@@ -60,6 +60,7 @@
   input[type=checkbox]:checked { background:var(--orange); } input[type=checkbox]:checked::after { transform:scale(1); }
   label.item.checked span { text-decoration:line-through; color:var(--mute); }
   label.item span { flex:1; font-size:17px; }
+  #access input { flex:1; min-width:0; padding:12px 14px; font-family:var(--body); font-size:17px; border:2px solid var(--ink); border-radius:2px; background:var(--card); color:var(--ink); }
   select { font-family:var(--body); font-size:17px; font-weight:500; max-width:48%; padding:6px; border-radius:2px; border:2px solid var(--ink); background:var(--paper); color:var(--ink); }
   footer { text-align:center; margin-top:28px; color:var(--mute); }
 </style>
@@ -77,6 +78,10 @@
   <textarea id="input" placeholder="milk, 2 avocados&#10;tortilla chips&#10;paper towels"></textarea>
   <div class="row"><button id="go">Find items</button><button id="clear" class="ghost">Clear</button></div>
   <div id="status" class="sub"></div>
+  <form id="access" class="row" hidden>
+    <input id="code" type="password" autocomplete="current-password" placeholder="Access code" aria-label="Access code">
+    <button type="submit">Save</button>
+  </form>
   <svg id="map" class="map" viewBox="0 0 100 100" hidden></svg>
   <div id="groups"></div>
   <footer><div class="stars">★ ★ ★</div></footer>

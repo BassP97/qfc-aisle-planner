@@ -47,11 +47,25 @@ async function classify(item, apiKey) {
   }
 }
 
+// Compare without bailing out at the first mismatch, so response time doesn't leak the code.
+function codeMatches(given, expected) {
+  const a = new TextEncoder().encode(given);
+  const b = new TextEncoder().encode(expected);
+  let diff = a.length ^ b.length;
+  for (let i = 0; i < b.length; i++) diff |= (a[i] ?? 0) ^ b[i];
+  return diff === 0;
+}
+
 export async function handleApi(request, env) {
   const url = new URL(request.url);
   if (url.pathname === "/api/layout") return Response.json(layout);
   if (url.pathname === "/api/classify" && request.method === "POST") {
-    if (!env.TYPESAFE_API_KEY) return Response.json({ error: "API key not configured" }, { status: 500 });
+    if (!env.TYPESAFE_API_KEY || !env.ACCESS_CODE) {
+      return Response.json({ error: "Server is missing TYPESAFE_API_KEY or ACCESS_CODE" }, { status: 500 });
+    }
+    if (!codeMatches(request.headers.get("X-Access-Code") ?? "", env.ACCESS_CODE)) {
+      return Response.json({ error: "Wrong or missing access code" }, { status: 401 });
+    }
     const { items } = await request.json();
     if (!Array.isArray(items) || items.length > MAX_ITEMS) {
       return Response.json({ error: `Send up to ${MAX_ITEMS} items` }, { status: 400 });

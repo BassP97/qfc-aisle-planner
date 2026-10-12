@@ -1,8 +1,11 @@
 const KEY = "qfc-map-state-v1";
+const CODE_KEY = "qfc-map-access-code";
 const $ = (id) => document.getElementById(id);
 let layout;
 let items = []; // { id, text, section|null, suggested, checked }
 
+const getCode = () => { try { return localStorage.getItem(CODE_KEY) ?? ""; } catch { return ""; } };
+const setCode = (c) => { try { localStorage.setItem(CODE_KEY, c); } catch {} };
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ items, text: $("input").value })); } catch {} };
 const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) ?? {}; } catch { return {}; } };
 
@@ -68,7 +71,17 @@ async function go() {
   $("go").disabled = true;
   $("status").textContent = "Finding items...";
   try {
-    const res = await fetch("/api/classify", { method: "POST", body: JSON.stringify({ items: parsed }) });
+    const res = await fetch("/api/classify", {
+      method: "POST",
+      headers: { "X-Access-Code": getCode() },
+      body: JSON.stringify({ items: parsed }),
+    });
+    if (res.status === 401) {
+      $("access").hidden = false;
+      $("code").focus();
+      $("status").textContent = getCode() ? "That access code is wrong." : "Enter the access code to continue.";
+      return;
+    }
     if (!res.ok) throw new Error((await res.json()).error ?? res.status);
     const { results } = await res.json();
     // Keep checked state for items that were already on the list.
@@ -91,6 +104,13 @@ async function init() {
   $("input").value = saved.text ?? "";
   $("input").addEventListener("input", save);
   $("go").addEventListener("click", go);
+  $("access").addEventListener("submit", (e) => {
+    e.preventDefault();
+    setCode($("code").value.trim());
+    $("access").hidden = true;
+    $("code").value = "";
+    go();
+  });
   $("clear").addEventListener("click", () => { items = []; $("input").value = ""; save(); render(); });
   render();
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
