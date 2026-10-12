@@ -12,6 +12,6 @@ Deploy: `npm install && npm run deploy && npx wrangler secret put TYPESAFE_API_K
 ## Dependencies
 
 - Only dev dependency: `wrangler` (`^4.143.0`; the lockfile pins the exact resolved versions). The Worker and the page ship with no npm packages.
-- `.npmrc` sets `min-release-age=7` (needs a recent npm; older versions, e.g. 9.x, ignore it, so check `npm -v`). The committed `package-lock.json` also pins every version; all were over 7 days old when locked.
+- `.npmrc` sets `min-release-age=3` (needs a recent npm; older versions, e.g. 9.x, ignore it, so check `npm -v`). The committed `package-lock.json` also pins every version; all were over 7 days old when locked (under the earlier 7-day setting).
 - Install with `npm ci` (uses the lockfile exactly). Add `--ignore-scripts` to skip install scripts; this was tested with wrangler 4.143.0.
 - `npm audit` reports advisories in `miniflare` (wrangler's local emulator). They are fixed only in releases newer than the cooldown, and we don't run the emulator (`npm run dev` uses `dev.js`). Once the fix is past the cooldown, `npm update wrangler` will pick it up.
