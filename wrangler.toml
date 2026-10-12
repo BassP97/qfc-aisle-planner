@@ -7,6 +7,11 @@ directory = "public"
 binding = "ASSETS"
 run_worker_first = ["/api/*"]
 
+[observability.logs]
+enabled = true
+invocation_logs = true
+persist = true
+
 # Per-IP request cap on /api/classify. Counters are per Cloudflare location and approximate.
 [[ratelimits]]
 name = "CLASSIFY_LIMITER"
