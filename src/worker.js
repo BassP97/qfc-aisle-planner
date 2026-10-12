@@ -58,12 +58,21 @@ function codeMatches(given, expected) {
 
 // API responses are never cached and must not be sniffed as another content type.
 const json = (body, init = {}) =>
-  Response.json(body, { ...init, headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
+  Response.json(body, {
+    ...init,
+    headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", ...init.headers },
+  });
 
 export async function handleApi(request, env) {
   const url = new URL(request.url);
   if (url.pathname === "/api/layout") return json(layout);
   if (url.pathname === "/api/classify" && request.method === "POST") {
+    // Runs before the access check, so it also limits wrong-code guessing. The binding is absent in local dev.
+    if (env.CLASSIFY_LIMITER) {
+      const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
+      const { success } = await env.CLASSIFY_LIMITER.limit({ key: ip });
+      if (!success) return json({ error: "Too many requests, try again in a minute" }, { status: 429, headers: { "Retry-After": "60" } });
+    }
     if (!env.TYPESAFE_API_KEY || !env.ACCESS_CODE) {
       return json({ error: "Server is missing TYPESAFE_API_KEY or ACCESS_CODE" }, { status: 500 });
     }

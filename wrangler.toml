@@ -6,3 +6,12 @@ compatibility_date = "2025-01-01"
 directory = "public"
 binding = "ASSETS"
 run_worker_first = ["/api/*"]
+
+# Per-IP request cap on /api/classify. Counters are per Cloudflare location and approximate.
+[[ratelimits]]
+name = "CLASSIFY_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 6
+  period = 60
