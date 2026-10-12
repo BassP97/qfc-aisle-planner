@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1f5f5b"/><path d="M50 18c-13 0-22 10-22 22 0 16 22 42 22 42s22-26 22-42c0-12-9-22-22-22zm0 31a9 9 0 110-18 9 9 0 010 18z" fill="#f3e9d2"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#1f5f5b"/>
+  <g stroke="#2b2118" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <!-- baguette -->
+    <g transform="rotate(-20 215 200)">
+      <rect x="183" y="62" width="64" height="250" rx="32" fill="#d9a41e"/>
+      <path d="M195 110l40 14M195 156l40 14M195 202l40 14" fill="none" stroke="#f3e9d2" stroke-width="7"/>
+    </g>
+    <!-- carrot -->
+    <g transform="rotate(18 325 200)">
+      <path d="M298 150q27-12 54 0l-22 150h-10z" fill="#c8531e"/>
+      <path d="M312 190h22M316 230h16" fill="none" stroke="#2b2118" stroke-width="5"/>
+      <ellipse cx="306" cy="124" rx="12" ry="32" fill="#9cc08a" transform="rotate(-24 306 124)"/>
+      <ellipse cx="325" cy="112" rx="12" ry="36" fill="#9cc08a"/>
+      <ellipse cx="344" cy="124" rx="12" ry="32" fill="#9cc08a" transform="rotate(24 344 124)"/>
+    </g>
+    <!-- paper bag -->
+    <path d="M150 232h212l-12 190q-1 12-13 12H175q-12 0-13-12z" fill="#f3e9d2"/>
+    <path d="M150 232h212l-2 34H152z" fill="#e6d8b8"/>
+    <path d="M256 296l12.4 25.2 27.8 4-20.1 19.6 4.7 27.7L256 359.4l-24.9 13.1 4.7-27.7-20.1-19.6 27.8-4z" fill="#c8531e"/>
+  </g>
+</svg>
