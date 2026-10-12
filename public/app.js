@@ -113,6 +113,5 @@ async function init() {
   });
   $("clear").addEventListener("click", () => { items = []; $("input").value = ""; save(); render(); });
   render();
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
 }
 init();
